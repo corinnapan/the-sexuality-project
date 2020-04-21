@@ -91,7 +91,7 @@ class App extends React.Component {
   // ====================================
 
   handleClickOnPost = (id) => {
-    this.props.history.push(`/posts/${id}`) //pass id of post when we click on button
+    this.props.history.push(`/posts/${id}`) //peass id of post when we click on button
 
   }
 
@@ -101,7 +101,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div class="main">
         <Header
           currentUser={this.state.currentUser}
           handleLogout={this.handleLogout}

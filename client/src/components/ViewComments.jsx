@@ -4,7 +4,7 @@ export default function ViewComments(props) {
   return (
     <div>
       {props.comments.map((comment) => (
-        <div>
+        <div key={comment.id}>
           <p>{comment.content}</p>
         </div>
       ))}

@@ -1,19 +1,22 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 export default function ViewAllPosts(props) { //list of posts 
   return (
     <div>
-      <h3>View All Posts</h3>
+    <h3>View All Posts</h3>
+    <div class="posts-grid">
       {props.posts.map((post) => (
-        <div onClick={()=>{
+        <div class="post" key={post.id} onClick={() => {
           props.handleClickOnPost(post.id)
         }}>
           <h5>{post.title}</h5>
           <p>{post.content.substring(0, 10)}...</p>
         </div>
       ))}
-      <Link to="/createpost">Create Post!</Link>
+    </div>
+    <Link to="/createpost">Create Post!</Link>
+   
     </div>
   )
 }
