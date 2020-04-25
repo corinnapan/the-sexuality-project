@@ -36,7 +36,7 @@ class App extends React.Component {
   handleLoginSubmit = async (formData) => {
     const currentUser = await loginUser(formData)
     this.setState({ currentUser })
-    this.props.history.push("/")
+    this.props.history.push("/posts")
   }
 
   handleVerify = async () => {
@@ -48,6 +48,7 @@ class App extends React.Component {
     localStorage.removeItem("authToken");
     this.setState({ currentUser: null })
     removeToken();
+    this.props.history.push("/");
   }
 
   // ====================================
@@ -99,14 +100,23 @@ class App extends React.Component {
   // ============= Render ===============
   // ====================================
 
+  // <Route exact path='/' render={LandingPage} />
   render() {
     return (
-      <div class="main">
+      <div className="main">
         <Header
           currentUser={this.state.currentUser}
           handleLogout={this.handleLogout}
         />
-        <Route exact path='/' render={LandingPage} />
+
+        <Route exact path='/' render={() => (
+          this.state.currentUser ?
+            this.props.history.push('/posts') :
+            <LandingPage
+              currentUser={this.state.currentUser}
+            />
+        )} />
+
         <Route path='/signup' render={() => (
           <SignUp
             handleSignUpSubmit={this.handleSignUpSubmit}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Route, Switch } from 'react-router-dom'
 
 
 function Header(props) {
@@ -10,13 +10,22 @@ function Header(props) {
         props.currentUser
           ?
           <>
-            <NavLink to="/posts">View Posts!</NavLink>
-            <button onClick={props.handleLogout}>Log Out!</button>
+            <Switch>
+              <Route exact path="/posts">
+                {/* Show nothing */}
+              </Route>
+              <Route path="/">
+                <NavLink to="/posts"><button className="big-button">View Posts!</button></NavLink>
+              </Route>
+            </Switch>
+
+            <button className="big-button" onClick={props.handleLogout}>Log Out!</button>
+
           </>
           :
           <>
-            <NavLink to="/login">Login</NavLink>
-            <NavLink to="/signup">Sign Up</NavLink>
+            {/* <NavLink to="/login">Login</NavLink>
+            <NavLink to="/signup">Sign Up</NavLink> */}
           </>
       }
 
