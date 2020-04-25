@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { getOnePost } from '../services/api-helper'
 import ViewComments from './ViewComments'
+import CreateComment from './CreateComment'
+
 
 export default class SeeOnePost extends Component {
   state = {
@@ -19,8 +21,10 @@ export default class SeeOnePost extends Component {
       <div>
         {post && (
           <div>
-            <h3>{post.title}</h3>
-            <p>{post.content}</p>
+            <div className="box-around-one-post">
+            <h3>Title: {post.title}</h3>
+            <p>My story: {post.content}</p>
+            </div>
             {currentUser && currentUser.id === post.user_id && (
               <div>
                 <button onClick={() => { this.props.history.push(`/posts/${post.id}/edit`) }}>Edit</button>
@@ -29,6 +33,9 @@ export default class SeeOnePost extends Component {
             )}
             <ViewComments
               comments={post.comments}
+            />
+            <CreateComment post={post}
+            handleCreateComment={this.props.handleCreateComment}
             />
           </div>
         )}

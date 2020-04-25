@@ -9,13 +9,13 @@ import ViewAllPosts from './components/ViewAllPosts'
 import EditPost from './components/EditPost'
 import SeeOnePost from './components/SeeOnePost'
 import { Route, withRouter } from 'react-router-dom'
-import { registerUser, loginUser, verifyUser, removeToken, getPosts, createPost, deleteOnePost, updatePost } from './services/api-helper'
+import { registerUser, loginUser, verifyUser, removeToken, getPosts, createPost, deleteOnePost, updatePost, createComment } from './services/api-helper'
 
 //create a route that goes to view all posts, pass down data (posts from state to view posts) and render
 class App extends React.Component {
   state = {
     currentUser: null,
-    posts: []
+    posts: [],
   }
 
   componentDidMount() {
@@ -78,15 +78,34 @@ class App extends React.Component {
   }
 
   handleUpdatePost = async (postData, id) => {
-    const updatedPost = await updatePost(postData, id) //api call to update just one post
-    this.setState(prevState => ({
+    const updatedPost = await updatePost(postData, id) //api call to update just one post. this is writing the newly updated post to the backend
+    this.setState(prevState => ({ //setting the state as a transformation from the previous state
       posts: prevState.posts.map((post) => {
         //match up id of one we updated 
         return post.id === parseInt(id) ? updatedPost : post
       })
-    }))
+    })) //lines 82 to 87 are for the frontend. 
     this.props.history.push(`/posts/${id}`)
   }
+
+  handleCreateComment = async (postData, commentData) => {
+    const updatedPost = await createComment(postData, commentData);
+
+    // Updating the frontend via this code wasn't working because post.comments did not exist??
+    // This is strange because post.comments works for SeeOnePost.
+    // this.setState(prevState => ({ //setting the state as a transformation from the previous state
+    //   posts: prevState.posts.map((post) => {
+    //     debugger;
+    //     //match up id of one we updated 
+    //     return post.id === postData.id ? updatedPost : post
+    //   })
+    // })) //lines 82 to 87 are for the frontend. 
+
+    window.location.reload();
+
+  } //calling the function that's in api-helper that makes the API call to backend to pass info to the backend
+
+
   // ====================================
   // ============= Other Methods ========
   // ====================================
@@ -143,6 +162,7 @@ class App extends React.Component {
             {...props}
             currentUser={this.state.currentUser}
             handleDeletePost={this.handleDeletePost}
+            handleCreateComment={this.handleCreateComment}
           />
         )} />
         <Route path='/posts/:id/edit' render={(props) => (

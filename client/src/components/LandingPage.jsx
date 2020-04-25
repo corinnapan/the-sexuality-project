@@ -4,17 +4,14 @@ import { NavLink } from 'react-router-dom'
 export default function LandingPage() {
 
   return (
-    <div className="landing-page-layout">
+    <div className="landing-page-layout center-text">
 
-      <h3>THE SEXUALITY SPECTRUM PROJECT!</h3>
+      <h3 className="landing-page-title">THE SEXUALITY SPECTRUM PROJECT!</h3>
       <div>
         <NavLink className="big-button spacer" to="/login">Login</NavLink>
         <NavLink className="big-button spacer" to="/signup">Sign Up</NavLink>
       </div>
-
-      <img src={require('./rainbow.png')} />
-
-
+      <img className="rainbow-image" src={require('./rainbow.png')} />
     </div>
   )
 }

@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom'
 
 export default function ViewAllPosts(props) { //list of posts 
   return (
-    <div>
+    <div className=" gradient">
       <div className="view-all-posts">
-        <h3>Our Stories--</h3>
-        <h4>Please contribute YOUR story to OUR collection.</h4>
+        <h3 className="center-text view-all-posts-title">OUR STORIES</h3>
+        <h4 className="center-text view-all-posts-title">PLEASE ADD YOUR STORY TO OUR COLLECTION.</h4>
       </div>
       <div className="posts-grid">
         {props.posts.map((post) => (

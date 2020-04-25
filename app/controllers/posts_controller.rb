@@ -17,7 +17,11 @@ class PostsController < ApplicationController
 
   # POST /posts
   def create
+    puts "\n\n\ncreate post\n\n"
     @post = Post.new(post_params) #params is a general term. params in a rails controller refers to URL of :id (slugs in the URL) but includes the request body in axios.
+    puts "\n\n\n"
+    puts post_params # {"title"=>"tet", "content"=>""}
+    puts "\n\n\n"
     @post.user = @current_user #associate whoever created the post with that user. which user made the post? in ordert to make post, have to provide token to prove who you are 
     if @post.save
       render json: @post, status: :created, location: @post
@@ -25,6 +29,13 @@ class PostsController < ApplicationController
       render json: @post.errors, status: :unprocessable_entity
     end
   end
+
+  # Parameters: {"id"=>"2", "title"=>"a storyline of jazz", "content"=>"hi i'm going to be happy. i'm testing", "user_id"=>1, "created_at"=>"2020-04-19T20:23:23.880Z", "updated_at"=>"2020-04-21T22:02:11.255Z", "comments"=>[{"id"=>1, "content"=>"this is a good post!", "user_id"=>2, "post_id"=>2, "created_at"=>"2019-10-03T17:51:00.952Z", "updated_at"=>"2019-10-03T17:51:00.952Z"}, {"content"=>"333"}], "post"=>{"id"=>"2", "title"=>"a storyline of jazz", "content"=>"hi i'm going to be happy. i'm testing", "user_id"=>1, "created_at"=>"2020-04-19T20:23:23.880Z", "updated_at"=>"2020-04-21T22:02:11.255Z"}}
+
+  # stopped here: need to figure out how to generate a 
+  # full fledged comment attached to a post
+
+  # Maybe we should be POSTing to /posts/1/comments/2
 
   # PATCH/PUT /posts/1
   def update
@@ -48,6 +59,6 @@ class PostsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def post_params
-      params.require(:post).permit(:title, :content, :user_id)
+      params.require(:post).permit(:title, :content, :user_id, :comments)
     end
 end

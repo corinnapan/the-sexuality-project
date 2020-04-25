@@ -15,15 +15,22 @@ class CommentsController < ApplicationController
     render json: @comment
   end
 
+
+# /post/3/comment/2
+
+# /comment/2
+
+
   # POST /comments
   def create
+    puts "\n\n\ncreate comment\n\n"
     @comment = Comment.new(comment_params)
     @comment.user = @current_user
     @post = Post.find(params[:post_id])#we have post that will be associated with comment
     @comment.post = @post #post of comment is now associated with post from line 22
 
     if @comment.save
-      render json: @comment, status: :created, location: @comment
+      render json: @post, status: :created, location: @post
     else
       render json: @comment.errors, status: :unprocessable_entity
     end

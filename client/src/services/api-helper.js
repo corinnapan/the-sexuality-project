@@ -1,7 +1,9 @@
 //vanilla java script, no jsx 
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:3000'
+const baseUrl = process.env.NODE_ENV === 'production'?
+'https://the-sexuality-spectrum-project.herokuapp.com/'
+:'http://localhost:3000'
 
 const api = axios.create({ //create an instance of Axios that's already configured to go to local host 3000
   baseURL: baseUrl
@@ -33,30 +35,40 @@ export const verifyUser = async () => {
 
 export const removeToken = () => {
   api.defaults.headers.common.authorization = null;
-} 
-
-export const getPosts = async() => {
-  const res = await api.get('/posts')
-  return res.data 
 }
 
-export const getOnePost = async(id) =>{
+export const getPosts = async () => {
+  const res = await api.get('/posts')
+  return res.data
+}
+
+export const getOnePost = async (id) => {
   const res = await api.get(`/posts/${id}`)
   return res.data
 }
 
 export const createPost = async (newPostData) => { //does it have to be async?
-  const res = await api.post('/posts', {post:newPostData} ) //post method takes two parameters: 1) where we're sending data and 2) the data that we're sending
+  const res = await api.post('/posts', { post: newPostData }) //post method takes two parameters: 1) where we're sending data and 2) the data that we're sending
   return res.data
 }
 
-export const deleteOnePost = async(id) =>{
+export const deleteOnePost = async (id) => {
   const res = await api.delete(`/posts/${id}`)
   return res.data
 }
 
-export const updatePost = async (postData,id) =>{
+export const updatePost = async (postData, id) => {
   const res = await api.put(`/posts/${id}`, postData)
+  return res.data
+}
+
+export const createComment = async (postData, commentData) => {
+  // const res = await api.post(`/posts/${id}/comments`, postData); -- this worked
+  // const res = await api.post(`/posts/${postData.id}/comments`, { comment: { content: 'what' } }) 
+
+  const res = await api.post(`/posts/${postData.id}/comments`, commentData)
+
+  //post method takes two parameters: 1) where we're sending data and 2) the data that we're sending
   return res.data
 }
 

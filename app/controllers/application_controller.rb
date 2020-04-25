@@ -1,7 +1,8 @@
 #app controller inherits from action controller. we can add anything to this controller and then other controllers will get access to those methods
 
 class ApplicationController < ActionController::API 
-  SECRET_KEY = Rails.application.secrets.secret_key_base.to_s #built-in and given to us from Rails, to_s converts to string. random string of text
+  SECRET_KEY = Rails.env == 'production'? ENV['SECRET_KEY'] :
+  Rails.application.secrets.secret_key_base.to_s #built-in and given to us from Rails, to_s converts to string. random string of text
 
   def encode(payload, exp = 24.hours.from_now) #default expiration
     payload[:exp] = exp.to_i #adds expiration to payload object. #whatever data you want in the token

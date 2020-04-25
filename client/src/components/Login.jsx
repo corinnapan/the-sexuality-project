@@ -15,8 +15,8 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="login-page-text">
-        <h3>Login!</h3>
+      <div className="login-page-text landing-page-layout">
+         <h3>Login!</h3>
         <form onSubmit={(e) => {
           e.preventDefault()
           this.props.handleLoginSubmit(this.state)
@@ -26,7 +26,8 @@ export default class Login extends Component {
             <input type="text" name="username" id="username" value={this.state.username} onChange={this.handleChange} />
             <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" value={this.state.password} onChange={this.handleChange} />
-            <button className="big-button">Submit!</button>
+            <div></div>
+            <button className="big-button" style={{ 'margin': '0 auto' }}>Submit!</button>
           </div>
         </form>
       </div>

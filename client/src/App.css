@@ -106,8 +106,17 @@ a{
   justify-content: center;
 }
 
-.landing-page-layout{
+.center-text{
   text-align: center;
+}
+
+.view-all-posts-title{
+  font-size: 30px;
+  color:white;
+}
+
+.landing-page-layout{
+/*  text-align: center;*/
   height: 100vh;
   display: flex;
   align-items: center;
@@ -115,6 +124,32 @@ a{
   flex-direction: column;
 }
 
+.landing-page-title{
+  font-size: 30px; 
+}
+
+.rainbow-image{
+  margin-top: 30px;
+  width: 75%;
+  max-width: 500px;
+}
+/* //width of the image that you're specifying as 50% should be 50% of the width of the parent */
+
+.gradient {
+  background-color: red; /* For browsers that do not support gradients */
+  background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); /* Standard syntax (must be last) */
+}
+
+.post{
+  background-color:white;
+}
+
+.box-around-one-post{
+  border: 2px solid black;
+  margin-top: 20px;
+  padding-left: 20px;
+  width: 50%;
+}
 
 .App {
   text-align: center;
